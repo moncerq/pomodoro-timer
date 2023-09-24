@@ -8,10 +8,25 @@
 </head>
 <body>
     <div class="clock">
-        <div class="time" id="time">00:00</div>
+        <p class="fifty">25 + 5 Clock</p>
+        <div class="time"><span id="minutes">25</span><span>:</span><span id="seconds">00</span></div>
         <button id="startStop">Start</button>
+        <button id="stop">Stop</button>
         <button id="reset">Reset</button>
+
+        <div class="length-control">
+            <div id="break-label">Break Length</div>
+            <button id="break-decrement" class="length-btn">-</button>
+            <div id="break-length" class="length">5</div>
+            <button id="break-increment" class="length-btn">+</button>
+        </div>
+        <div class="length-control">
+            <div id="session-label">Session Length</div>
+            <button id="session-decrement" class="length-btn">-</button>
+            <div id="session-length" class="length">25</div>
+            <button id="session-increment" class="length-btn">+</button>
+        </div>
     </div>
-    <script src="script.js"></script>
 </body>
+<script src="app.js"></script>
 </html>

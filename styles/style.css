@@ -8,6 +8,16 @@ body {
     margin: 0;
 }
 
+.fifty {
+    position: relative;
+    top: 20px;
+    font-size: 90px;
+    height: 50px;
+    margin: 0;
+    padding: 0;
+    color: rgb(5, 20, 34)
+}
+
 .clock {
     background-color: #fff;
     border-radius: 10px;
@@ -17,8 +27,13 @@ body {
 }
 
 .time {
+    position: relative;
+    top: 100px;
+    left: -150px;
     font-size: 36px;
     margin-bottom: 10px;
+    font-size: 80px;
+    color: rgb(12, 61, 77);
 }
 
 button {
@@ -33,5 +48,31 @@ button {
 }
 
 button:hover {
+    background-color: #0056b3;
+}
+
+.length-control {
+    display: inline-block;
+    margin: 20px;
+    text-align: center;
+}
+
+.length {
+    font-size: 24px;
+    margin: 10px;
+}
+
+.length-btn {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    font-size: 18px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 5px;
+}
+
+.length-btn:hover {
     background-color: #0056b3;
 }
