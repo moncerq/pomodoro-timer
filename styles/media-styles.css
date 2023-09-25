@@ -1,0 +1,38 @@
+@media (max-width: 480px) {
+    body {
+        justify-content: flex-start; /* Змінюємо вирівнювання контенту */
+        align-items: flex-start;
+        padding: 20px; /* Додаємо внутрішній відступ */
+    }
+
+    .fifty {
+        font-size: 48px; /* Зменшуємо розмір тексту */
+        top: 0; /* Позиціонуємо текст зверху */
+    }
+
+    .clock {
+        width: 100%; /* Заповнюємо всю ширину екрану */
+        padding: 10px; /* Зменшуємо внутрішній відступ */
+    }
+
+    .time {
+        top: 20px; /* Зсуваємо текст вниз */
+        right: 0;
+        font-size: 36px;
+    }
+
+    .length-control {
+        text-align: center; /* Вирівнюємо вміст по центру */
+        margin: 10px 0; /* Зменшуємо зовнішній відступ */
+    }
+
+    .length {
+        font-size: 18px; /* Зменшуємо розмір тексту */
+        margin: 5px;
+    }
+
+    .length-btn {
+        font-size: 14px; /* Зменшуємо розмір тексту */
+        padding: 3px 6px; /* Зменшуємо відступи кнопок */
+    }
+}

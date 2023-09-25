@@ -29,11 +29,12 @@ body {
 .time {
     position: relative;
     top: 100px;
-    left: -150px;
+    right: -50px;
     font-size: 36px;
     margin-bottom: 10px;
     font-size: 80px;
     color: rgb(12, 61, 77);
+    max-width: 150px;
 }
 
 button {
