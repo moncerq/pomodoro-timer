@@ -1,3 +1,4 @@
+
 let start = document.getElementById('startStop');
 let stopTime = document.getElementById('stop');
 
@@ -24,7 +25,6 @@ class Timer {
         this.resetMin = 25;
         this.resetSec = 0;
         this.breakValue = parseInt(breakLength.textContent);
-        this.lastTimer = null;
     }
 
     sessionIncValue() {
@@ -40,37 +40,45 @@ class Timer {
         minutesContent.textContent = sessionLength.textContent;
     }
 
-    sessionHandler () {
-        if (this.lastTimer !== 'session') {
-            console.log("session timer started")
-            start.setAttribute("disabled", "");
-            start.style.backgroundColor = 'grey';
-            start.style.cursor = 'not-allowed';
-            this.timer = setInterval(() => {
-                if (this.minutes === 0 && this.seconds === 0) {
-                    this.stopSessionHandler(this.timer);
-                    console.log('session timer finish');
-                    this.breakHandler();
-                    return;
-                }
-    
-                if (this.seconds === 0) {
-                    this.minutes--;
-                    this.seconds = 59;
-                } else {
-                    this.seconds--;
-                }
-
-                if (this.minutes === 0 && this.seconds <= 59) {
-                    divTime.style.color = 'red'
-                }
-    
-                minutesContent.textContent = this.minutes.toString().padStart(2, '0');
-                secondsContent.textContent = this.seconds.toString().padStart(2, '0');
-            }, 1000);
-            this.lastTimer = 'session';
-        }
+    playAudio() {
+        let audioFile = document.getElementById('audio');
+        let audio = new Audio(audioFile.src);
+        audio.volume = 0.2;
+        audio.play();
     }
+
+    sessionHandler() {
+        this.playAudio();
+        start.setAttribute("disabled", "");
+        start.style.backgroundColor = 'grey';
+        start.style.cursor = 'not-allowed';
+        stopTime.removeAttribute("disabled", "");
+        stopTime.style.backgroundColor = '';
+        stopTime.style.cursor = 'pointer';
+
+    
+        this.timer = setInterval(() => {
+            if (this.minutes === 0 && this.seconds === 0) {
+                this.stopSessionHandler(this.timer);
+                this.breakHandler();
+                return;
+            }
+    
+            if (this.seconds === 0) {
+                this.minutes--;
+                this.seconds = 59;
+            } else {
+                this.seconds--;
+            }
+    
+            if (this.minutes === 0 && this.seconds <= 59) {
+                divTime.style.color = 'red'
+            }
+    
+            minutesContent.textContent = this.minutes.toString().padStart(2, '0');
+            secondsContent.textContent = this.seconds.toString().padStart(2, '0');
+        }, 1000);
+    }    
 
     stopSessionHandler(timer) {
         clearInterval(timer);
@@ -81,7 +89,9 @@ class Timer {
         start.removeAttribute("disabled", "");
         start.style.backgroundColor = '';
         start.style.cursor = 'pointer';
-        console.log("session timer stopped")
+        stopTime.setAttribute("disabled", "");
+        stopTime.style.backgroundColor = 'grey';
+        stopTime.style.cursor = 'not-allowed';
     }
 
     stopButtonBreakTimer() {
@@ -89,41 +99,43 @@ class Timer {
         start.removeAttribute("disabled", "");
         start.style.backgroundColor = '';
         start.style.cursor = 'pointer';
-        console.log("break timer stopped")
+        stopTime.setAttribute("disabled", "");
+        stopTime.style.backgroundColor = 'grey';
+        stopTime.style.cursor = 'not-allowed';
     }
 
     breakHandler() {
-        if (this.lastTimer !== 'break') {
-            console.log("break timer started")
-            this.minutes = this.breakValue;
-            divTime.style.color = 'lightseagreen';
-            start.setAttribute("disabled", "");
-            start.style.backgroundColor = 'grey';
-
-            this.timerBreak = setInterval(() => {
-                if (this.minutes === 0 && this.seconds === 0) {
-                    console.log('break timer finish');
-                    this.stopSessionHandler(this.timerBreak);
-                    this.resetValue();
-                    return;
-                }
-
-                if (this.seconds === 0) {
-                    this.minutes--;
-                    this.seconds = 59;
-                } else {
-                    this.seconds--;
-                }
-
-                if (this.minutes === 0 && this.seconds <= 59) {
-                    divTime.style.color = 'red'
-                }
-
-                minutesContent.textContent = this.minutes.toString().padStart(2, '0');
-                secondsContent.textContent = this.seconds.toString().padStart(2, '0');
-            }, 1000);
-            this.lastTimer = 'break';
-        }
+        this.playAudio();
+        this.minutes = this.breakValue;
+        divTime.style.color = 'lightseagreen';
+        start.setAttribute("disabled", "");
+        stopTime.setAttribute("disabled", "");
+        start.style.backgroundColor = 'grey';
+        stopTime.style.backgroundColor = 'grey';
+        stopTime.style.cursor = 'not-allowed';
+    
+        this.timerBreak = setInterval(() => {
+            if (this.minutes === 0 && this.seconds === 0) {
+                this.stopSessionHandler(this.timerBreak);
+                this.resetValue();
+                this.sessionHandler();
+                return;
+            }
+    
+            if (this.seconds === 0) {
+                this.minutes--;
+                this.seconds = 59;
+            } else {
+                this.seconds--;
+            }
+    
+            if (this.minutes === 0 && this.seconds <= 59) {
+                divTime.style.color = 'red'
+            }
+    
+            minutesContent.textContent = this.minutes.toString().padStart(2, '0');
+            secondsContent.textContent = this.seconds.toString().padStart(2, '0');
+        }, 1000);
     }
 
     breakIncLength() {
@@ -150,8 +162,6 @@ class Timer {
         sessionLength.textContent = this.resetMin.toString().padStart(2, '0');
         minutesContent.textContent = this.resetMin.toString().padStart(2, '0');
         secondsContent.textContent = this.resetSec.toString().padStart(2, '0');
-
-        console.log('timer reset')
     }
 }
 
@@ -162,7 +172,6 @@ start.addEventListener('click', () => timer.sessionHandler());
 stopTime.addEventListener('click', () => {
     timer.stopButtonSessionTimer();
     timer.stopButtonBreakTimer();
-    timer.lastTimer = null;
 });
 
 reset.addEventListener('click', () => timer.resetValue());
